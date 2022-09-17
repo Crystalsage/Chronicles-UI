@@ -1,5 +1,5 @@
 <template>
-  <div class="parent bg-gray-700 ">
+  <div class="parent bg-gray-700 absolute w-full h-full">
     <NavigationBar />
     <HomePage />
   </div>
