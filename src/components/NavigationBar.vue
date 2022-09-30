@@ -19,6 +19,7 @@
 
 <script>
 import { ref } from 'vue'
+import  axios from 'axios'
 
 export default {
   name: 'NavigationBar',
@@ -34,7 +35,7 @@ export default {
     function togglePosts() {
       showPosts.value = !showPosts.value
       document.getElementById('posts').text = showPosts.value ? 'Hide Post' : 'Show Post'
-    }
+			}
 
     return {
       showPosts,
