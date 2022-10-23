@@ -5,7 +5,7 @@
       <p class="mt-4">It does so by deploying a bot on your server that will, when invoked, collect messages that you designate and will post to your account over on here. This way, you can archive all of your important conversatios and access them until the end of time!</p>
     </div>
 
-    <div class="post mt-5 text-white mx-auto max-w-xl bg-gray-500">
+    <div class="post mt-5 text-white mx-auto max-w-xl bg-gray-500" v-on:click="get_post_by_id(1)">
       <div class="flex justify-between bg-red-700 p-6">
         <div class="author-title">
           <p class="title text-3xl font-bold">This is my project in Rust with Vue.js!</p>
@@ -31,7 +31,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 import type { Ref } from 'vue';
 
-import { Post, Message } from '../types/Post';
+import { Post } from '../types/Post';
 
 
 export default {
@@ -48,6 +48,7 @@ export default {
 
     async function get_post_by_id(id: number) {
       let post: Ref<Post> = new_post();
+      axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
       const res = await axios.get("http://0.0.0.0:8080/get_post_by_id",  { params: { id: id } });
 
       post.value.id = res.data.id;

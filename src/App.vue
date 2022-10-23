@@ -5,15 +5,17 @@
   </div>
 </template>
 
-<script>
-import NavigationBar from './components/NavigationBar.vue'
+<script lang="ts">
+import NavigationBar from './components/NavigationBar.vue';
 import HomePage from './components/HomePage.vue';
 
-export default {
-  name: 'App',
-  components: {
-    NavigationBar,
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: "App",
+  components: { 
+    NavigationBar, 
     HomePage
   }
-}
+})
 </script>
