@@ -26,8 +26,41 @@
     </div>
 </template> 
 
-<script>
+<script lang="ts">
+import axios from 'axios';
+import { ref } from 'vue';
+import type { Ref } from 'vue';
+
+import { Post, Message } from '../types/Post';
+
+
 export default {
   name: 'HomePage',
+
+  setup() {
+    function new_post(): Ref<Post> {
+      return ref({
+        id: 0,
+        platform: "Discord",
+        messages: [],
+      })
+    }
+
+    async function get_post_by_id(id: number) {
+      let post: Ref<Post> = new_post();
+      const res = await axios.get("http://0.0.0.0:8080/get_post_by_id",  { params: { id: id } });
+
+      post.value.id = res.data.id;
+      post.value.messages = res.data.messages;
+
+      console.log(post);
+    }
+
+    return {
+      new_post,
+      get_post_by_id
+    }
+  }
 }
+
 </script>
