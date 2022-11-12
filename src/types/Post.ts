@@ -7,5 +7,7 @@ export interface Message {
 export interface Post {
     id: number,
     platform: string,
+    title: string,
+    date: string,
     messages: Message[],
 }

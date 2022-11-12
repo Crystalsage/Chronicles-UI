@@ -8,19 +8,18 @@
     <div class="post mt-5 text-white mx-auto max-w-xl bg-gray-500" v-on:click="get_post_by_id(1)">
       <div class="flex justify-between bg-red-700 p-6">
         <div class="author-title">
-          <p class="title text-3xl font-bold">This is my project in Rust with Vue.js!</p>
-          <p class="author mt-3 font-semibold text-xl">Bourbon</p>
+          <p class="post-title text-3xl font-bold"> {{ post.title }} </p>
+          <p class="post-author mt-3 font-semibold text-xl"> {{ post.messages[0].author }} </p>
         </div>
 
         <div class="date-time border-l-2 p-2">
-          <p>18th September</p>
-          <p>12:18 AM</p>
+          <p>{{ post.date }}</p>
         </div>
       </div>
 
-      <div class="message">
+      <div class="post-message">
         <p class="mt-2 p-5">
-          Starting a new project to build do 3 main things. Use it  to learn GO. Motivate me to setup my personal Server. Actually build something I thought about for a bit.
+          {{ post.messages[0].content }}
         </p>
       </div>
     </div>
@@ -42,22 +41,31 @@ export default {
       return ref({
         id: 0,
         platform: "Discord",
-        messages: [],
+        title: "Hello from Discord!",
+        date: "18-09-2022",
+        messages: [
+          {
+            timestamp: 90923,
+            content: "This is a message",
+            author: "Bourbon"
+          }
+        ],
       })
     }
 
+    let post: Ref<Post> =  new_post();
+
     async function get_post_by_id(id: number) {
-      let post: Ref<Post> = new_post();
-      axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-      const res = await axios.get("http://0.0.0.0:8080/get_post_by_id",  { params: { id: id } });
+      const res = await axios.get("http://0.0.0.0:9001/get_post_by_id",  { params: { id: id } });
 
       post.value.id = res.data.id;
+      post.value.title = res.data.title;
+      post.value.date = res.data.date;
       post.value.messages = res.data.messages;
-
-      console.log(post);
     }
 
     return {
+      post,
       new_post,
       get_post_by_id
     }

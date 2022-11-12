@@ -5,5 +5,5 @@ import './assets/tailwind.css'
 import axios from 'axios';
 
 
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 createApp(App).mount('#app')
